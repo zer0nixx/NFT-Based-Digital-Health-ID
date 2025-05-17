@@ -36,15 +36,16 @@ public entry fun create_health_id(
     record_id: String,
     data_hash: String
 )
+```
 
 Update Health Record
-```
+
 public entry fun update_health_record(
     provider: &signer,
     patient_addr: address,
     new_data_hash: String
 ) acquires HealthRecord
-```
+
 
 
 🔒 Access Control
@@ -53,9 +54,13 @@ Patients cannot create multiple health IDs.
 
  How to Run
 1. Build the module:
-```aptos move compile```
-2. Run tests:
-```aptos move test```
+```move
+aptos move compile
+```
+3. Run tests:
+```move
+aptos move test
+```
 
 
 📄 License
