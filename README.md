@@ -1,144 +1,65 @@
-Digital Health ID - Aptos Smart Contract
+# Digital Health ID on Aptos
 
+A Move smart contract for managing digital health records on the Aptos blockchain. This module enables patients to securely create, update, and share their health data with authorized medical providers.
 
-A blockchain-based solution for secure and private digital health identification using Aptos Move.
+---
 
+## ✨ Features
 
-Overview
-This smart contract provides a decentralized approach to managing digital health IDs on the Aptos blockchain. Rather than storing sensitive medical information directly on-chain, the system uses cryptographic hashes to reference off-chain data while maintaining privacy and security.
+- **Unique Digital Health ID:** Each patient can create a unique health record.
+- **Data Privacy:** Only authorized providers or the patient can update health data.
+- **Auditability:** All updates are timestamped for traceability.
+- **Extensible:** Easily add new fields or permissions as needed.
 
-Features
-Secure Digital Health IDs: Create unique health identifiers linked to patient addresses
+---
 
-Privacy-Preserving: Sensitive health data remains off-chain, referenced via secure hashes
+## 🏗️ Module Overview
 
-Access Control: Only patients and authorized providers can update health records
+**Module:** `HealthRecords::DigitalHealthID`
 
-Tamper-Evident: All record changes are timestamped and recorded on the blockchain
+### Struct: `HealthRecord`
+- `id`: Unique identifier for the health record
+- `data_hash`: Hash of health data (for off-chain verification)
+- `created_at`: Creation timestamp
+- `updated_at`: Last updated timestamp
+- `authorized_providers`: List of addresses allowed to update
 
-Minimal Design: Simple yet effective implementation in under 50 lines of code
+---
 
-Smart Contract Structure
+## 📝 Example Usage
 
-The contract consists of two main functions:
+### Create a Health ID
 
-create_health_id: Creates a new digital health ID for a patient
+```move
+public entry fun create_health_id(
+    patient: &signer,
+    record_id: String,
+    data_hash: String
+)
 
-update_health_record: Updates an existing health record (restricted to authorized parties)
+Update Health Record
+```
+public entry fun update_health_record(
+    provider: &signer,
+    patient_addr: address,
+    new_data_hash: String
+) acquires HealthRecord
+```
 
-Technical Implementation
 
+🔒 Access Control
+Only the patient or an authorized provider can update a health record.
+Patients cannot create multiple health IDs.
 
-The HealthRecord resource contains:
+ How to Run
+1. Build the module:
+```aptos move compile```
+2. Run tests:
+```aptos move test```
 
-A unique identifier for the health record
 
-A cryptographic hash of the health data (stored off-chain)
+📄 License
+MIT
 
-Timestamps for creation and updates
-
-List of authorized provider addresses
-
-Usage
-
-Prerequisites
-
-Aptos CLI
-
-Move compiler
-
-Deployment
-
-Clone this repository
-
-bash
-
-git clone https://github.com/YOUR_USERNAME/aptos-health-id.git
-
-cd aptos-health-id
-
-Compile the contract
-
-bash
-
-aptos move compile
-
-Deploy to Aptos blockchain
-
-bash
-
-aptos move publish
-
-Using the Contract
-
-
-After deployment, interact with the contract using the Aptos CLI or SDK:
-
-Creating a Health ID
-
-bash
-
-aptos move run \
-
-  --function-id 'YOUR_ADDRESS::DigitalHealthID::create_health_id' \
-
-  --args 'string:RECORD_ID' 'string:DATA_HASH'
-
-
-Updating a Health Record
-
-bash
-
-aptos move run \
-
-  --function-id 'YOUR_ADDRESS::DigitalHealthID::update_health_record' \
-
-  --args 'address:PATIENT_ADDRESS' 'string:NEW_DATA_HASH'
-
-
-Security Considerations
-
-The contract uses access control to ensure only authorized parties can update records
-
-No sensitive health information is stored on-chain
-
-Data hashes provide tamper-evident verification without compromising privacy
-
-Potential Use Cases
-
-Electronic Medical Records (EMR) systems
-
-Cross-border health data sharing
-
-Patient-controlled health information
-
-Healthcare provider authentication
-
-Insurance claim verification
-
-Future Enhancements
-
-Add functionality to manage authorized providers
-
-Implement tiered access controls for different data types
-
-Add emergency access provisions
-
-Extend with consent management features
-
-Integrate with off-chain storage solutions
-
-
-License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-
-Acknowledgments
-
-Aptos blockchain team for providing the Move language
-
-Healthcare and blockchain community
-
-Note: This smart contract is provided as a proof of concept. Before deploying in a production environment, ensure proper security audits are conducted and compliance with relevant healthcare regulations (HIPAA, GDPR, etc.) is maintained.
+Made with ❤️ for secure digital health on Aptos.
 
